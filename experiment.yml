@@ -1,0 +1,62 @@
+name: kiso-orcasound-experiment
+condor:
+  central-manager:
+    roles:
+      - central-manager
+
+  execute:
+    roles:
+      - execute
+
+  submit:
+    roles:
+      - submit
+
+apptainer:
+  roles:
+    - execute
+
+sites:
+  - kind: vagrant
+    backend: virtualbox
+    box: bento/rockylinux-9
+    user: vagrant
+    config_extra: 'config.vm.synced_folder ".", "/vagrant", disabled: true'
+    resources:
+      machines:
+        - roles:
+            - submit
+            - execute
+            - central-manager
+          backend: virtualbox
+          box: bento/rockylinux-9
+          user: vagrant
+          number: 1
+          flavour_desc:
+            core: 16
+            mem: 16384
+      networks:
+        - roles:
+            - r1
+          cidr: "172.16.42.0/16"
+
+experiments:
+  - kind: pegasus
+    name: orcasound-experiment
+    count: 1
+    main: bin/main.sh
+    submit-node-roles:
+      - submit
+    timeout: -1
+    setup:
+      - roles:
+          - submit
+        executable: /bin/bash
+        script: |
+          #!/bin/bash
+          set -e
+          mkdir -p ~/.pegasus
+          chmod 700 ~/.pegasus
+          cp secrets/credentials.conf ~/.pegasus/credentials.conf
+          chmod 600 ~/.pegasus/credentials.conf
+          sudo pip install numpy pandas
