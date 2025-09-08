@@ -1,3 +1,5 @@
+This workflow is based on an open-source software and hardware project that trains itself using the audio files generated via the hydrophone sensors deployed in three locations in the state of Washington (San Juan Island, Point Bush, and Port Townsend) in order to study Orca whales in the Pacific Northwest region. This workflow uses code and ideas available in the Orcasound GitHub actions workflow and the Orca Hello real-time notification system. The Kiso experiment runs the Orcasound workflow workflow.
+
 # Getting Started
 
 > [!IMPORTANT]
