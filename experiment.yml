@@ -1,20 +1,23 @@
 name: kiso-orcasound-experiment
-condor:
-  central-manager:
-    roles:
-      - central-manager
 
-  execute:
-    roles:
+deployment:
+  htcondor:
+    - kind: central-manager
+      labels:
+        - central-manager
+
+    - kind: execute
+      labels:
+        - execute
+
+    - kind: submit
+      labels:
+        - submit
+
+software:
+  apptainer:
+    labels:
       - execute
-
-  submit:
-    roles:
-      - submit
-
-apptainer:
-  roles:
-    - execute
 
 sites:
   - kind: vagrant
@@ -24,7 +27,7 @@ sites:
     config_extra: 'config.vm.synced_folder ".", "/vagrant", disabled: true'
     resources:
       machines:
-        - roles:
+        - labels:
             - submit
             - execute
             - central-manager
@@ -36,7 +39,7 @@ sites:
             core: 16
             mem: 16384
       networks:
-        - roles:
+        - labels:
             - r1
           cidr: "172.16.42.0/16"
 
@@ -45,11 +48,11 @@ experiments:
     name: orcasound-experiment
     count: 1
     main: bin/main.sh
-    submit-node-roles:
+    submit_node_labels:
       - submit
     timeout: -1
     setup:
-      - roles:
+      - labels:
           - submit
         executable: /bin/bash
         script: |
