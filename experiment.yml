@@ -56,10 +56,5 @@ experiments:
           - submit
         executable: /bin/bash
         script: |
-          #!/bin/bash
           set -e
-          mkdir -p ~/.pegasus
-          chmod 700 ~/.pegasus
-          cp secrets/credentials.conf ~/.pegasus/credentials.conf
-          chmod 600 ~/.pegasus/credentials.conf
           sudo pip install numpy pandas

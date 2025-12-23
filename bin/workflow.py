@@ -218,7 +218,9 @@ class OrcasoundWorkflow:
         # Add s3 files as deep lfns
         for f in self.s3_files["Key"]:
             self.rc.add_replica(
-                "AmazonS3", f, "s3://george@amazon/{}/{}".format(self.s3_bucket, f)
+                "AmazonS3",
+                f,
+                f"https://{self.s3_bucket}.s3.us-west-2.amazonaws.com/{f}",
             )
 
         # Add inference dependencies
