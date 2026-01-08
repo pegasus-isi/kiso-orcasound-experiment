@@ -12,19 +12,6 @@ pip install kiso
 pip install kiso[vagrant]
 ```
 
-## Credentials
-
-Create a file named `secrets/credentials.conf` with the following content:
-
-```ini
-[amazon]
-endpoint = https://s3.<AWS-REGION>>.amazonaws.com/
-
-[george@amazon]
-access_key = <AWS-ACCESS-KEY>
-secret_key = <AWS-SECRET-KEY>
-```
-
 ## Running the experiment
 
 
